@@ -1,3 +1,8 @@
+" Active Pathoen.vim. (this should be called before enabling filetype
+" detection.)
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptages()
+
 scriptencoding utf-8
 
 autocmd! bufwritepost .vimrc source ~/.vimrc	" auto reload vimrc when editing it
