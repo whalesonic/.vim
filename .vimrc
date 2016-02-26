@@ -1,3 +1,5 @@
+" Last uptate : 17:38 02/25/2016
+
 " Active Pathoen.vim. (this should be called before enabling filetype
 " detection.)
 call pathogen#runtime_append_all_bundles()
