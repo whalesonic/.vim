@@ -1,7 +1,7 @@
 " Active Pathoen.vim. (this should be called before enabling filetype
 " detection.)
 call pathogen#runtime_append_all_bundles()
-call pathogen#helptages()
+call pathogen#helptags()
 
 scriptencoding utf-8
 
