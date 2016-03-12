@@ -1,30 +1,92 @@
-" Last uptate : 17:38 02/25/2016
+"Last uptate : 13:15 03/10/2016
 
-" Active Pathoen.vim. (this should be called before enabling filetype
-" detection.)
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+"# Plugin Manager : VundleVim 
+"  PATH           : ./bundle/Vundle.vim/
+"  Conf. (below) >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   set nocompatible              " be iMproved, required
+   filetype off                  " required
+
+   " set the runtime path to include Vundle and initialize
+   set rtp+=~/.vim/bundle/Vundle.vim
+   call vundle#begin()
+
+   Plugin 'VundleVim/Vundle.vim'    " let Vundle manage Vundle, require
+
+   Plugin 'scrooloose/nerdtree'
+   Plugin 'scrooloose/syntastic'
+   Plugin 'kien/ctrlp.vim'
+   Plugin 'tpope/vim-fugitive'
+   Plugin 'vim-airline/vim-airline'
+
+   " All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" END: VundleVim Conf. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+"# plugin. ctrlp conf. ---------------------
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+   " Exclude files & directories using vim's wildignore and ctrlP's g:ctrlp_custom_ignore
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+
+let g:ctrlp_custom_ignore='\v[\/]\.(git|hg|svn)$'
+"let g:ctrlp_custom_ignore={ 'dir':  '\v[\/]\.(git|hg|svn)$', 'file': '\v\.(exe|so|dll)$', 'link': 'some_bad_symbolic_links' }
+
+"# plugin syntastic conf. ------------------
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+
+" plugin fugitive conf. --------------------
+set statusline+=%{fugitive#statusline()}  " get an indicator with the current branch in ur statusline.
+
+
+" plugin airline conf. --------------------
+"let g:airline#extensions#tabline#enabled = 1
+set laststatus=2  " keep statusline appear ( defaul apper when a split is created )
+
+"set guifont=Liberation\ Mono\ for\ Powerline\ 10 
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+   let g:airline_symbols = {}
+endif
+
+" airline symbols   
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+
 
 scriptencoding utf-8
 
-autocmd! bufwritepost .vimrc source ~/.vimrc	" auto reload vimrc when editing it
+"autocmd! bufwritepost .vimrc source ~/.vimrc	" auto reload vimrc when editing it
 
 " General Settings
 "
 set autoread	" auto read when file is changed outside
 set showmode	" show current mode
 
-
 syntax on	" syntax highlight
 set hlsearch	" search highlighting
-set guifont=Monaco
+"set guifont=Monaco
 set t_Co=256	" 256 color mode
 set cursorline	" highlight current line
-colorscheme molokai-e	" set default color scheme
+colorscheme molokai	" set default color scheme
 
-
-set ai			" auto indent
-set copyindent		" copy the previous indentation on autoindenting
+"set ai			" auto indent
+"set copyindent		" copy the previous indentation on autoindenting
 set nobackup		" no *~ backup files
 set nu 			" show line num
 set ignorecase		" ignore case when searching
@@ -44,11 +106,11 @@ au FileType Makefile set noexpandtab
 "hi LineNr guifg=#737373
 
 " status line {
-set laststatus=2
-set statusline=\ %{HasPaste()}%<%-15.25(%f%)%m%r%h\ %w\ \
-set statusline+=\ \ \ [%{&ff}/%Y]
-set statusline+=\ \ \ %<%20.30(%{hostname()}:%{CurDir()}%)\
-set statusline+=%=%-10.(%l,%c%V%)\ %p%%/%L
+"set laststatus=2
+"set statusline=\ %{HasPaste()}%<%-15.25(%f%)%m%r%h\ %w\ \
+"set statusline+=\ \ \ [%{&ff}/%Y]
+"set statusline+=\ \ \ %<%20.30(%{hostname()}:%{CurDir()}%)\
+"set statusline+=%=%-10.(%l,%c%V%)\ %p%%/%L
 
 function! CurDir()
 	let curdir = substitute(getcwd(), $HOME, "~", "")
@@ -65,67 +127,66 @@ endfunction
 
 " }
 
-
 " ---------------------------------------------------------------------------------------------
 "  USEFUL SHORTCUTS
 " ---------------------------------------------------------------------------------------------
 " --- move around splits {
 " move to & maximize the below split
- map <C-j> <C-W>j "<C-W>_
+" map <C-j> <C-W>j "<C-W>_
 " move to & maximize the above split
- map <C-k> <C-W>k "<C-W>_
+" map <C-k> <C-W>k "<C-W>_
 " move to & maximize the left split
- map <C-h> <C-W>h "<C-W><bar>
+" map <C-h> <C-W>h "<C-W><bar>
 " move to & maximize the right split
- map <C-l> <C-W>l "<C-W><bar>
-set wmw=0			" set the min width of a window to 0 so we can maximize others
-set wmh=0			" set the min height of a window to 0 so we can maximize others
+" map <C-l> <C-W>l "<C-W><bar>
+"set wmw=0			" set the min width of a window to 0 so we can maximize others
+"set wmh=0			" set the min height of a window to 0 so we can maximize others
 "  }
 
 " move around tabs. conflict with the original screen top/bottom
 " comment them out if you want the original H/L
 " go to prev tab
-map <S-H> gT
+"map <S-H> gT
 " go to next tab
 " }
 " ---------------------------------------------------------------------------------------------
 "  USEFUL SHORTCUTS
 " ---------------------------------------------------------------------------------------------
 " set leader to
-let mapleader=","
-let g:mapleader=","
+"let mapleader=","
+"let g:mapleader=","
 
 " ,/ turn off search highlighting
-nmap <leader>/ :nohl<CR>
+"nmap <leader>/ :nohl<CR>
 
 " --- move around splits {
 " move to & maximize the below split
- map <C-j> <C-W>j "<C-W>_
+" map <C-j> <C-W>j "<C-W>_
 " move to & maximize the above split
- map <C-k> <C-W>k "<C-W>_
+" map <C-k> <C-W>k "<C-W>_
 " move to & maximize the left split
- map <C-h> <C-W>h "<C-W>_
+" map <C-h> <C-W>h "<C-W>_
 " move to & maximize the right split
- map <C-l> <C-W>l "<C-W>_
-set wmw=0			" set the min width of a window to 0 so we can maximize others
-set wmh=0			" set the min height of a window to 0 so we can maximize others
+" map <C-l> <C-W>l "<C-W>_
+"set wmw=0			" set the min width of a window to 0 so we can maximize others
+"set wmh=0			" set the min height of a window to 0 so we can maximize others
 "  }
 
 " move around tabs. conflict with the original screen top/bottom
 " comment them out if you want the original H/L
 " go to prev tab
-map <S-H> gT
+"map <S-H> gT
 " go to next tab
-map <S-L> gt
+"map <S-L> gt
 
 " <Esc>
-imap <S-CR> <Esc>
+"imap <S-CR> <Esc>
 
 " Max H of current window
-map <C-m> <C-w>300_
+"map <C-m> <C-w>300_
 
 " Toggle Max current window
-map <C-o> <C-w>o
+"map <C-o> <C-w>o
 
 " :cd. change working directory to that of the current file
 cmap cd. lcd %:p:h
