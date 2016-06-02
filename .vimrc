@@ -92,12 +92,17 @@ set nu 			" show line num
 set ignorecase		" ignore case when searching
 set smartcase		" ignore case if search patten is all lowrcase, case-sensitive otherwise
 
-" Tab setting {
-set expandtab		" replace <TAB> with spaces
-set softtabstop=3
-set shiftwidth=3	" indent-width
+" replace <TAB> with spaces
+" Tab setting 
+"{
+
+set expandtab		
+set softtabstop=4       " set number of spaces that a <Tab> counts for
+set shiftwidth=4	" governs the '>>' behavior
+set smarttab
 
 au FileType Makefile set noexpandtab
+
 "}
 
 " set Line# bg-color
