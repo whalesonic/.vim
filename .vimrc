@@ -1,8 +1,10 @@
 "Last uptate : 13:15 03/10/2016
 
-"# Plugin Manager : VundleVim 
+"@ Plugin Manager : VundleVim 
 "  PATH           : ./bundle/Vundle.vim/
-"  Conf. (below) >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+"  -------------------------------------------------------------------
+"  Below for Configuration :
+
    set nocompatible              " be iMproved, required
    filetype off                  " required
 
@@ -14,16 +16,25 @@
 
    Plugin 'scrooloose/nerdtree'
    Plugin 'scrooloose/syntastic'
-   Plugin 'kien/ctrlp.vim'
+"unmaintained   Plugin 'kien/ctrlp.vim'
+   Plugin 'ctrlpvim/ctrlp.vim'
    Plugin 'tpope/vim-fugitive'
    Plugin 'vim-airline/vim-airline'
+
+"   else plugin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   Plugin 'majutsushi/tagbar'
+
+
 
    " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" END: VundleVim Conf. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+"  -------------------------------------------------------------------
 
-"# plugin. ctrlp conf. ---------------------
+
+
+"@ Plugin/ ctrlp 
+"  -------------------------------------------------------------------
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
@@ -33,7 +44,8 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 let g:ctrlp_custom_ignore='\v[\/]\.(git|hg|svn)$'
 "let g:ctrlp_custom_ignore={ 'dir':  '\v[\/]\.(git|hg|svn)$', 'file': '\v\.(exe|so|dll)$', 'link': 'some_bad_symbolic_links' }
 
-"# plugin syntastic conf. ------------------
+"@ Plugin/ syntastic 
+"  -------------------------------------------------------------------
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -43,12 +55,31 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" Enable syntax checker
+let g:syntastic_enable_perl_checker = 1
+let g:syntastic_perl_checkers = ['perl', 'podchecker']
+"let g:syntastic_javascript_checkers = ['eslint']
 
-" plugin fugitive conf. --------------------
+
+" Change symbol
+let g:syntastic_error_symbol = '>×'
+let g:syntastic_style_error_symbol = '»'
+let g:syntastic_warning_symbol = '!'
+let g:syntastic_style_warning_symbol = '>!'
+
+highlight link SyntasticErrorSign SignColumn
+highlight link SyntasticWarningSign SignColumn
+highlight link SyntasticStyleErrorSign SignColumn
+highlight link SyntasticStyleWarningSign SignColumn
+
+
+" Plugin/ fugitive 
+"  -------------------------------------------------------------------
 set statusline+=%{fugitive#statusline()}  " get an indicator with the current branch in ur statusline.
 
 
-" plugin airline conf. --------------------
+" Plugin/ airline 
+"  -------------------------------------------------------------------
 "let g:airline#extensions#tabline#enabled = 1
 set laststatus=2  " keep statusline appear ( defaul apper when a split is created )
 
@@ -71,7 +102,19 @@ let g:airline_symbols.linenr = ''
 
 scriptencoding utf-8
 
+
+" Plugin/ tagbar
+"  -------------------------------------------------------------------
+nmap <F9> :TagbarToggle<CR>
+" auto focus when startup
+
+let g:tagbar_ctags_bin='/usr/bin/ctags'     "Proper Ctags location, let tagbar to invok ctags
+let g:tagbar_autofocus = 1
+"let g:tagbar_width=35                       " default is 40
+
+
 "autocmd! bufwritepost .vimrc source ~/.vimrc	" auto reload vimrc when editing it
+"  -------------------------------------------------------------------
 
 " General Settings
 "
@@ -131,6 +174,21 @@ function! HasPaste()
 endfunction
 
 " }
+
+
+
+" ---------------------------------------------------------------------------------------------
+"  USEFUL SHORTCUTS
+" ---------------------------------------------------------------------------------------------
+
+" Zoom/Restore current split-window 
+"   zoom
+nnoremap <C-w>o :mksession! ~/session.vim<CR>:wincmd o<CR>      
+"   restore(undo)
+nnoremap <C-w>u :source ~/session.vim<CR>
+
+
+
 
 " ---------------------------------------------------------------------------------------------
 "  USEFUL SHORTCUTS
