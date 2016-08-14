@@ -113,6 +113,16 @@ let g:tagbar_autofocus = 1
 "let g:tagbar_width=35                       " default is 40
 
 
+" / Go To Definition..
+"  -------------------------------------------------------------------
+set tags=./.tags;    " tell vim where to look for Default / Generic tag file
+
+" generate tags for this folder recurively
+nnoremap <F12> :!ctags -R --exclude=.git -f .tags<CR>:!echo ".tags gened."<CR>
+
+noremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+"noremap <C-W> :vsp      <CR>:exec("tag ".expand("<cword>"))<CR>
+
 "autocmd! bufwritepost .vimrc source ~/.vimrc	" auto reload vimrc when editing it
 "  -------------------------------------------------------------------
 
